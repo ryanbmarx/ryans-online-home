@@ -22,12 +22,13 @@
     "postcss-cli": "^2.5.1"
   },
   "scripts": {
+    "appendChildThemeMeta": "node node_scripts/appendChildThemeMeta.js style.css child-theme-meta.txt",
     "lint:functions": "phplint 'functions.php'",
     "scss": "node-sass --source-map true --output-style compressed  --output . sass/style.scss",
     "autoprefixer": "postcss -u autoprefixer -r ./*.css && node node_scripts/notify.js 'css compiled' 'And autoprefixed, too'",
-    "build:css": "npm run scss && npm run autoprefixer && node node_scripts/appendChildThemeMeta.js ./style.css && npm run upload:css",
+    "build:css": "npm run scss && npm run autoprefixer && npm run appendChildThemeMeta && npm run upload:css",
     "build": "parallelshell 'npm run build:css'",
-    "upload:css": "node node_scripts/uploadFiles.js style.css style.css.map && node node_scripts/notify.js 'css uploaded'",
+    "upload:css": "node_scripts/notify.js 'css uploaded'",
     "upload:functions": "node node_scripts/uploadFiles.js functions.php",
     "upload:icons": "node node_scripts/uploadFiles.js img/icons/communications.svg img/icons/consulting.svg img/icons/content.svg img/icons/seo.svg img/icons/website.svg img/icons/writing.svg img/icons/quotation.svg",
     "watch:icons": "onchange 'img/icons/**/*.svg' -- npm run upload:icons",
